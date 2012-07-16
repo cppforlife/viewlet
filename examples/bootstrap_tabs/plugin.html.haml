@@ -1,0 +1,17 @@
+.tabbable{:id => unique_id}
+  %ul.nav.nav-tabs
+    - tabs.each_with_index do |tab, i|
+      %li{:class => ("active" if i == 0)}
+        = link_to tab, "#tab#{i}"
+
+  .tab-content
+    - tabs.each_with_index do |tab, i|
+      .tab-pane{:id => "tab#{i}", :class => ("active" if i == 0)}
+        %h1= tab
+        = send(tab.underscore)
+
+- unless defined?(no_script)
+  javascript:
+    $(document).ready(function(){
+      $("##{unique_id}").tab();
+    });
