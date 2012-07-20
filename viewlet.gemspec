@@ -7,11 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Viewlet::VERSION
   s.authors     = ["Dmitriy Kalinin"]
   s.email       = ["cppforlife@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
-
-  s.rubyforge_project = "viewlet"
+  s.homepage    = "https://github.com/cppforlife/viewlet"
+  s.summary     = "Rails view components"
+  s.description = s.summary
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
