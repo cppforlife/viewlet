@@ -60,21 +60,25 @@ In `app/viewlets/list_section/list_section.html.haml`:
 .list_section
   %h2
     = heading
+
     - if add_button
       %small= add_button
+
     - if collapse_button
       %small.collapse_button= link_to "Collapse", "#"
 
   - if items.empty?
+    - # outputs value regardless being defined as an argument-less block or a plain value
     %p= empty_description
+
   - else
     %ul
       - items.each do |item|
         %li{:class => cycle("odd", "even", :name => :list_section)}
-          .left
-            = list_section.row_title(item)
-          .right
-            = capture(item, &row_details) # alternative
+          .left= list_section.row_title(item)
+
+          - # alternative way of capturing block's content
+          .right= capture(item, &row_details)
 ```
 
 All viewlet options (heading, add_button, etc.) set in `show.html.haml`
