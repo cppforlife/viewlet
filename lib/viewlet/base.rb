@@ -1,3 +1,5 @@
+require "viewlet/template"
+
 module Viewlet
   class Base
     def initialize(name, view)
@@ -10,8 +12,7 @@ module Viewlet
     end
 
     def render
-      file_path = Rails.root.join("app/viewlets/#{@name}/plugin").to_s
-      @view.render(:file => file_path, :locals => @variables)
+      Template.find(@name.to_s).render(@view, @variables)
     end
 
     private
