@@ -42,12 +42,13 @@ Here is how `show.html.haml` could look:
     = link_to "Invite Members", new_group_member_path(@group)
 
   - s.items @group.members
-  - s.row do |member|
-    .left
-      .name= member.name
-      .summary= member.summary
-    .right
-      = render :partial => "some_other_partial", :locals => {:member => member}
+
+  - s.row_title do |member|
+    .name= member.name
+    .summary= member.summary
+
+  - s.row_details do |member|
+    = render :partial => "some_other_partial", :locals => {:member => member}
 ```
 
 Now let's define list_section viewlet. Viewlets live in `app/viewlets`
@@ -70,7 +71,10 @@ In `app/viewlets/list_section/list_section.html.haml`:
     %ul
       - items.each do |item|
         %li{:class => cycle("odd", "even", :name => :list_section)}
-          = capture(item, &row)
+          .left
+            = list_section.row_title(item)
+          .right
+            = capture(item, &row_details) # alternative
 ```
 
 All viewlet options (heading, add_button, etc.) set in `show.html.haml`
