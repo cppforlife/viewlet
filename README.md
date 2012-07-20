@@ -51,9 +51,9 @@ Here is how `show.html.haml` could look:
 ```
 
 Now let's define list_section viewlet. Viewlets live in `app/viewlets`
-and each one must have at least `plugin.html.haml`.
+and each one must have at least `<name>.html.haml`.
 
-In `app/viewlets/list_section/plugin.html.haml`:
+In `app/viewlets/list_section/list_section.html.haml`:
 
 ```haml
 .list_section
@@ -74,8 +74,12 @@ In `app/viewlets/list_section/plugin.html.haml`:
 ```
 
 All viewlet options (heading, add_button, etc.) set in `show.html.haml`
-become available in `plugin.html.haml` as local variables. None of
+become available in `list_section.html.haml` as local variables. None of
 those options are special and you can make up as many as you want.
+
+Note: If there aren't CSS or JS files you want to keep next to your viewlet
+HTML file you don't need to create a directory for each viewlet; simply
+put them in `app/viewlets` e.g. `app/viewlets/list_section.html.haml`.
 
 ### CSS & JS
 
@@ -156,7 +160,7 @@ really functional until we add that javascript piece somewhere.
 Alternatively you can put it right after HTML so everytime
 list_section is rendered it will be automatically initialized.
 
-For example in `plugin.html.haml`:
+For example in `list_section.html.haml`:
 
 ```haml
 .list_section{:id => unique_id}
