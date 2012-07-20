@@ -143,7 +143,22 @@ To include list_section viewlet JS in your application add
 
 to your `application.js`
 
-## Misc
+## Tips
+
+* You do not have to provide a block to `viewlet`:
+
+```haml
+= viewlet(:password_strength)
+```
+
+* You can use hash syntax (and block syntax):
+
+```haml
+= viewlet(:password_strength, :levels => %w(none weak good))
+
+= viewlet(:password_strength, :levels => %w(none weak good)) do |ps|
+  - ps.levels %w(none weak good excellent) # overrides levels
+```
 
 * Let's say we decide to make our list_section viewlet use
 third-party list re-ordering library (e.g. `orderable-list.js`).
@@ -189,14 +204,8 @@ that could be used as HTML id.
 `class_name` option lets you set custom viewlet class:
 
 ```haml
-= viewlet(:list_section, :class_name => "CustomListSectionViewlet") do
+= viewlet(:list_section, {}, :class_name => "CustomListSectionViewlet") do
   ...
-```
-
-* You do not have to pass in block to `viewlet`:
-
-```haml
-= viewlet(:password_strength)
 ```
 
 ## Todo
