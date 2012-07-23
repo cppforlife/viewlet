@@ -1,0 +1,4 @@
+- css_classes = [("active" if defined?(active)), ("progress-striped" if defined?(striped))]
+
+.progress{:class => css_classes.join(" ")}
+  .bar{:percent => "#{width}%"}
