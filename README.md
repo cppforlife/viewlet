@@ -227,6 +227,8 @@ that could be used as HTML id.
 
   row_details do |member|
     = render :partial => "some_other_partial", :locals => {:member => member}
+
+%password_strength_viewlet{:levels => %w(none weak good)}
 ```
 
 ## Todo

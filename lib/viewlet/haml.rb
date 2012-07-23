@@ -5,8 +5,7 @@ Haml::Parser.class_eval do
   # `%complex_viewlet` becomes `= viewlet(:complex) do |viewlet_0|`
   def push_with_viewlet_tag(node)
     if node.value[:name].try(:end_with?, "_viewlet")
-      name = node.value[:name].gsub(/_viewlet$/, "")
-      node = script(" viewlet(:#{name}) #{"do |#{viewlet_push}|" if block_opened?}")
+      node = build_viewlet_node(node)
     end
     push_without_viewlet_tag(node)
   end
@@ -28,6 +27,23 @@ Haml::Parser.class_eval do
   alias_method_chain :plain, :viewlet_parent_tag
 
   private
+
+  def build_viewlet_node(node)
+    name = node.value[:name].gsub(/_viewlet$/, "")
+    attrs = attributes_string(node.value[:attributes_hashes])
+    block = "do |#{viewlet_push}|" if block_opened?
+    script(" viewlet(:#{name} #{attrs}) #{block}")
+  end
+
+  def attributes_string(attributes_hashes)
+    if attributes_hashes.empty?
+      attributes_hashes = ""
+    elsif attributes_hashes.size == 1
+      attributes_hashes = ", #{attributes_hashes.first}"
+    else
+      attributes_hashes = ", (#{attributes_hashes.join(").merge(")})"
+    end
+  end
 
   def viewlet_peek
     viewlet_names.last.try(:first)
