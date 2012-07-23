@@ -17,14 +17,14 @@ module Viewlet
 
     private
 
-    def method_missing(method, *args, &block)
-      is_write_op = if @variables[method].is_a?(Proc)
+    def method_missing(variable_name, *args, &block)
+      is_write_op = if @variables[variable_name].is_a?(Proc)
         block.present?
       else
         args.any? || block.present?
       end
 
-      send("_#{is_write_op ? :write : :read}_variable", method, *args, &block)
+      send("_#{is_write_op ? :write : :read}_variable", variable_name, *args, &block)
     end
 
     def _read_variable(name, *args, &block)
