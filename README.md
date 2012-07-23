@@ -208,6 +208,27 @@ that could be used as HTML id.
   ...
 ```
 
+* If you are using HAML you can use special syntax to output a viewlet:
+
+```haml
+%list_section_viewlet # viewlet name suffixed with '_viewlet'
+  heading "Group members"
+  empty_description "No members in this group"
+
+  collapse_button false
+  add_button do
+    = link_to "Invite Members", new_group_member_path(@group)
+
+  items @group.members
+
+  row_title do |member|
+    .name= member.name
+    .summary= member.summary
+
+  row_details do |member|
+    = render :partial => "some_other_partial", :locals => {:member => member}
+```
+
 ## Todo
 
 * come up with a better name for main files - *plugin* doesn't sound that good
