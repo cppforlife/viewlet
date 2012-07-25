@@ -39,7 +39,11 @@ module Viewlet
       @variables[name] = if block
         # HAML changes argument-less block {|| } into block {|*a| }
         # which makes block.arity to be -1 instead of just 0
-        block.arity == -1 ? @view.capture(&block) : block
+        if block.arity == -1
+          @view.capture(&block)
+        else
+          Proc.new { |*a| @view.capture(*a, &block) }
+        end
       else
         args.first
       end

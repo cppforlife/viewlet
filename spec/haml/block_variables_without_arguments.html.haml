@@ -1,0 +1,34 @@
+%block_without_argument_viewlet
+  text { "block-curly" }
+
+%block_without_argument_viewlet
+  - text { "block-curly-dash" }
+
+%block_without_argument_viewlet
+  text do
+    block-do
+
+%block_without_argument_viewlet
+  - text do
+    block-do-dash
+
+%block_without_argument_viewlet
+  text do
+    - block_var = "block-var" # use dash!
+    = block_var
+
+%block_without_argument_viewlet
+  - text do
+    - block_var = "block-var-dash" # use dash!
+    = block_var
+
+__END__
+block-curly
+block-curly-dash
+block-do
+
+block-do-dash
+
+block-var
+
+block-var-dash

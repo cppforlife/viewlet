@@ -1,0 +1,28 @@
+%block_with_argument_viewlet
+  text { |arg| "block-curly-#{arg}" }
+
+%block_with_argument_viewlet
+  - text { |arg| "block-curly-dash-#{arg}" }
+
+%block_with_argument_viewlet
+  text do |arg|
+    = "block-do-#{arg}"
+
+%block_with_argument_viewlet
+  - text do |arg|
+    = "block-do-dash-#{arg}"
+
+__END__
+block-curly-method-argument
+block-curly-capture-argument
+block-curly-call-argument
+block-curly-dash-method-argument
+block-curly-dash-capture-argument
+block-curly-dash-call-argument
+block-do-method-argument
+block-do-capture-argument
+block-do-call-argument
+
+block-do-dash-method-argument
+block-do-dash-capture-argument
+block-do-dash-call-argument
