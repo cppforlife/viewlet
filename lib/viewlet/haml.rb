@@ -1,3 +1,6 @@
+require "active_support/core_ext/object/try"
+require "active_support/core_ext/module/aliasing"
+
 Haml::Parser.class_eval do
   # `%simple_viewlet` becomes `= viewlet(:simple)`
   # `%complex_viewlet` becomes `= viewlet(:complex) do |viewlet_0|`
@@ -37,18 +40,21 @@ Haml::Parser.class_eval do
 
   def build_viewlet_node(node)
     name = node.value[:name].gsub(/_viewlet$/, "")
-    attrs = attributes_string(node.value[:attributes_hashes])
+    attrs = attributes_string(node)
     block = "do |#{viewlet_push}|" if block_opened?
     script(" viewlet(:#{name} #{attrs}) #{block}")
   end
 
-  def attributes_string(attributes_hashes)
-    if attributes_hashes.empty?
-      attributes_hashes = ""
-    elsif attributes_hashes.size == 1
-      attributes_hashes = ", #{attributes_hashes.first}"
+  def attributes_string(node)
+    return ", #{node.value[:attributes].inspect}" \
+      unless node.value[:attributes].empty?
+
+    if (hashes = node.value[:attributes_hashes]).empty?
+      ""
+    elsif hashes.size == 1
+      ", #{hashes.first}"
     else
-      attributes_hashes = ", (#{attributes_hashes.join(").merge(")})"
+      ", (#{hashes.join(").merge(")})"
     end
   end
 

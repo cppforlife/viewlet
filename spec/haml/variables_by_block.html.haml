@@ -1,0 +1,24 @@
+%content_viewlet
+  content "simple"
+
+%content_viewlet
+  - content "simple-dash"
+
+- outside_local_var = "outside-local-var"
+%content_viewlet
+  - content outside_local_var
+
+- @outside_instance_var = "outside-instance-var"
+%content_viewlet
+  - content @outside_instance_var
+
+- extend Module.new(){ def outside_method; "outside-method"; end }
+%content_viewlet
+  - content outside_method
+
+__END__
+simple
+simple-dash
+outside-local-var
+outside-instance-var
+outside-method

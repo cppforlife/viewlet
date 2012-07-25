@@ -1,3 +1,5 @@
+require "action_view"
+
 module Viewlet
   class Template
     def self.find(name)

@@ -1,0 +1,34 @@
+%content_viewlet
+  content { "block-curly" }
+
+%content_viewlet
+  - content { "block-curly-dash" }
+
+%content_viewlet
+  content do
+    block-do
+
+%content_viewlet
+  - content do
+    block-do-dash
+
+%content_viewlet
+  content do
+    - block_var = "block-var"
+    = block_var
+
+%content_viewlet
+  - content do
+    - block_var = "block-var-dash"
+    = block_var
+
+__END__
+block-curly
+block-curly-dash
+block-do
+
+block-do-dash
+
+block-var
+
+block-var-dash
