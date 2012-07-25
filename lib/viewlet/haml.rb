@@ -14,10 +14,19 @@ Haml::Parser.class_eval do
     viewlet_pop
   end
 
-  # `prop "whatever"` becomes `- viewlet_0.prop "whatever"`
-  def plain_with_viewlet_parent_tag(text, escape_html = nil)
+  # `- prop "whatever"` becomes `- viewlet_0.prop "whatever"`
+  def silent_script_with_viewlet_parent_tag(text)
     if viewlet_definition?
-      silent_script(" #{viewlet_peek}.#{text}")
+      text = "- #{viewlet_peek}.#{text.gsub(/^\-\s*/, "")}"
+    end
+    silent_script_without_viewlet_parent_tag(text)
+  end
+  alias_method_chain :silent_script, :viewlet_parent_tag
+
+  # `prop "whatever"` becomes `- viewlet_0.prop "whatever"`
+  def plain_with_viewlet_parent_tag(text, escape_html=nil)
+    if viewlet_definition?
+      silent_script_without_viewlet_parent_tag(" #{viewlet_peek}.#{text}")
     else
       plain_without_viewlet_parent_tag(text, escape_html)
     end

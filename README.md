@@ -229,6 +229,9 @@ that could be used as HTML id.
     = render :partial => "some_other_partial", :locals => {:member => member}
 
 %password_strength_viewlet{:levels => %w(none weak good)}
+
+%password_strength_viewlet
+  - levels %w(none weak good) # notice optional dash at the beginning
 ```
 
 ## Todo
