@@ -1,7 +1,10 @@
 module Viewlet
   class Railtie < ::Rails::Railtie
-    initializer "viewlets.view_helpers" do
+    initializer "viewlet.view_helpers" do
       ActionView::Base.send :include, Viewlet::Helpers
+    end
+
+    config.before_configuration do
       require "viewlet/haml" if defined?(Haml)
     end
 
