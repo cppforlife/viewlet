@@ -2,7 +2,7 @@ module Viewlet
   class Railtie < ::Rails::Railtie
     initializer "viewlets.view_helpers" do
       ActionView::Base.send :include, Viewlet::Helpers
-      require "viewlet/haml"
+      require "viewlet/haml" if defined?(Haml)
     end
 
     config.to_prepare do |app|

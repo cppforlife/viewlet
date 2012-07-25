@@ -1,5 +1,3 @@
-return unless defined?(Haml)
-
 Haml::Parser.class_eval do
   # `%simple_viewlet` becomes `= viewlet(:simple)`
   # `%complex_viewlet` becomes `= viewlet(:complex) do |viewlet_0|`
