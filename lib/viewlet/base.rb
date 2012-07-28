@@ -29,7 +29,7 @@ module Viewlet
 
     def _read_variable(name, *args, &block)
       if @variables[name].is_a?(Proc)
-        @view.capture(*args, &@variables[name])
+        @variables[name].call(*args)
       else
         @variables[name]
       end
