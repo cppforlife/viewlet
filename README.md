@@ -89,6 +89,34 @@ Note: If there aren't CSS or JS files you want to keep next to your viewlet
 HTML file you don't need to create a directory for each viewlet; simply
 put them in `app/viewlets` e.g. `app/viewlets/list_section.html.haml`.
 
+### Special HAML syntax
+
+If you are using HAML you can use special syntax to output a viewlet:
+
+```haml
+%list_section_viewlet # viewlet name suffixed with '_viewlet'
+  heading "Group members"
+  empty_description "No members in this group"
+
+  collapse_button false
+  add_button do
+    = link_to "Invite Members", new_group_member_path(@group)
+
+  items @group.members
+
+  row_title do |member|
+    .name= member.name
+    .summary= member.summary
+
+  row_details do |member|
+    = render :partial => "some_other_partial", :locals => {:member => member}
+
+%password_strength_viewlet{:levels => %w(none weak good)}
+
+%password_strength_viewlet
+  - levels %w(none weak good) # notice optional dash at the beginning
+```
+
 ### CSS & JS
 
 You can also add other types of files to `app/viewlets/list_section/`.
@@ -206,32 +234,6 @@ that could be used as HTML id.
 ```haml
 = viewlet(:list_section, {}, :class_name => "CustomListSectionViewlet") do
   ...
-```
-
-* If you are using HAML you can use special syntax to output a viewlet:
-
-```haml
-%list_section_viewlet # viewlet name suffixed with '_viewlet'
-  heading "Group members"
-  empty_description "No members in this group"
-
-  collapse_button false
-  add_button do
-    = link_to "Invite Members", new_group_member_path(@group)
-
-  items @group.members
-
-  row_title do |member|
-    .name= member.name
-    .summary= member.summary
-
-  row_details do |member|
-    = render :partial => "some_other_partial", :locals => {:member => member}
-
-%password_strength_viewlet{:levels => %w(none weak good)}
-
-%password_strength_viewlet
-  - levels %w(none weak good) # notice optional dash at the beginning
 ```
 
 ## Todo
