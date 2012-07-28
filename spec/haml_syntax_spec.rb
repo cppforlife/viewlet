@@ -1,6 +1,4 @@
 require "spec_helper"
-require "haml"
-require "viewlet"
 require "viewlet/haml"
 
 describe "HAML syntax" do
